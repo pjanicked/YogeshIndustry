@@ -1,0 +1,24 @@
+ /*    SqlCommand com = new SqlCommand("getprice", con);
+            com.CommandType = CommandType.StoredProcedure;
+            SqlParameter tablename = com.Parameters.AddWithValue("table_name", catselected);
+            SqlParameter optname = com.Parameters.AddWithValue("opt_name", optselected);
+            com.Parameters.Add("@ans", SqlDbType.VarChar, 50);
+            com.Parameters["@ans"].Direction = ParameterDirection.Output;
+            com.ExecuteNonQuery(); */
+
+          /*  SqlCommand com = new SqlCommand("select Price from @tbl where Opt_Name = @Opt_Name", con);
+            com.Parameters.AddWithValue("tbl", catselected);
+            com.Parameters.AddWithValue("Opt_Name", optselected);
+            ans2 = com.ExecuteScalar().ToString(); */
+
+tbprice.Text = com.Parameters["@ans"].Value.ToString();
+
+CREATE PROCEDURE [dbo].[getprice]
+	@table_name VARCHAR(50),
+	@opt_name VARCHAR(50),
+    @ans int  OUTPUT 
+AS
+BEGIN
+/* declare @sql int; */
+Set @ans = 'SELECT Price FROM ' + QUOTENAME(@table_name) + ' WHERE Opt_Name = ' + QUOTENAME(@opt_name) + '' ;
+END
